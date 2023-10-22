@@ -12,3 +12,12 @@ Day2 21st October 2023
 - Setting base Angular Project(Done)
 - Designing FE(In Progress)
 - Setting Cloudfront(In Progress)
+
+Day3 22st October 2023
+- Setting Up Domain and Certificate(Done) ✅
+- Setting base Angular Project(Done) ✅
+- Setting Cloudfront(Done) ✅
+- Designing FE(In Progress) 👩🏻‍💻
+- Validation(not started yet) 🥶
+- Backend API Serverless(In Progress) 👩🏻‍💻
+- Blog (not started yet)🥶
