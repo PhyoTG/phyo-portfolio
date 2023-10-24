@@ -1,6 +1,7 @@
 <div class="theme-top" [@animateMenu]>
     <div class="theme-bar theme-white theme-card" id="myNavbar">
-        <a href="#home" class="theme-bar-item theme-button theme-wide">LOGO</a>
+        <a href="#home" class="theme-bar-item theme-button theme-wide">PHYO</a>
+        <audio #ref src="https://soundbible.com/grab.php?id=1964&type=mp3"></audio>
         <!-- Right-sided navbar links -->
         <div class="theme-right theme-hide-small">
             <a href="#about" class="theme-bar-item theme-button">ABOUT ME</a>
@@ -34,7 +35,8 @@
 <!-- Header with full-height image -->
 <header class="bgimg-1 theme-display-container theme-grayscale-min" id="home">
     <div class="theme-display-left theme-text-white" style="padding:48px">
-        <span class="theme-jumbo theme-hide-small" [@writingAnimation]="animationState">{{heading}}</span><br>
+        <span class="theme-jumbo theme-hide-small" [@writingAnimation]="animationState">{{heading}} </span><br>
+
         <span class="theme-xxlarge theme-hide-large theme-hide-medium"
             [@writingAnimation]="animationState">{{heading}}</span><br>
         <div style="width: 60%;">
@@ -54,17 +56,15 @@
                 technologies to solve major
                 technical challenges.</span>
         </div>
-        <p><a href="#about"
-                class="theme-button theme-white theme-padding-large theme-large theme-margin-top theme-opacity theme-hover-opacity-off">Get
-                In Touch</a></p>
+        <p><span (click)="ref.play()"
+                class="theme-button theme-white theme-padding-large theme-large theme-margin-top theme-opacity theme-hover-opacity-off">Call
+                my name like this</span></p>
     </div>
-    <div class="theme-display-bottomleft theme-text-grey theme-large" style="padding:24px 48px">
-        <i class="fa fa-facebook-official theme-hover-opacity"></i>
-        <i class="fa fa-instagram theme-hover-opacity"></i>
-        <i class="fa fa-snapchat theme-hover-opacity"></i>
-        <i class="fa fa-pinterest-p theme-hover-opacity"></i>
-        <i class="fa fa-twitter theme-hover-opacity"></i>
-        <i class="fa fa-linkedin theme-hover-opacity"></i>
+    <div class="theme-display-bottomleft theme-text-grey theme-large social" style="padding:24px 48px">
+        <i class="fa fa-facebook-official theme-hover-opacity" (click)="call('facebook')"></i>
+        <i class="fa fa-pinterest-p theme-hover-opacity" (click)="call('pinterest')"></i>
+        <i class="fa fa-youtube theme-hover-opacity" (click)="call('youtube')"></i>
+        <i class="fa fa-linkedin theme-hover-opacity" (click)="call('linkedin')"></i>
     </div>
 </header>
 
@@ -156,24 +156,51 @@
 </div>
 
 <!-- Contact Section -->
-<div class="theme-container theme-light-grey" style="padding:128px 16px" id="contact">
+<div class="theme-container theme-light-grey" style="padding:128px 25%" id="contact">
     <h3 class="theme-center">CONTACT</h3>
     <p class="theme-center theme-large">Let's get in touch. Send me a message:</p>
     <div style="margin-top:48px">
-        <!-- <p><i class="fa fa-map-marker fa-fw theme-xxlarge theme-margin-right"></i> Chicago, US</p>
-        <p><i class="fa fa-phone fa-fw theme-xxlarge theme-margin-right"></i> Phone: +00 151515</p>
-        <p><i class="fa fa-envelope fa-fw theme-xxlarge theme-margin-right"> </i> Email: mail@mail.com</p>
-        <br> -->
-        <form action="/action_page.php" target="_blank">
-            <p><input class="theme-input theme-border" type="text" placeholder="Name" required name="Name"></p>
-            <p><input class="theme-input theme-border" type="text" placeholder="Email" required name="Email"></p>
-            <p><input class="theme-input theme-border" type="text" placeholder="Subject" required name="Subject"></p>
-            <p><input class="theme-input theme-border" type="text" placeholder="Message" required name="Message"></p>
-            <p>
+        <!-- <form #message="ngForm" (ngSubmit)="clickSend(message.value)">
+            <p><input class="theme-input theme-border" type="text" placeholder="Name" required name="name" ngModel></p>
+            <p><input class="theme-input theme-border" type="text" placeholder="Email" required name="email" ngModel>
+            </p>
+            <p><input class="theme-input theme-border" type="text" placeholder="Subject" required name="subject"
+                    ngModel></p>
+            <p><input class="theme-input theme-border" type="text" placeholder="Message" required name="message"
+                    ngModel></p>
+            <p class="theme-center">
                 <button class="theme-button theme-main" type="submit">
                     <i class="fa fa-paper-plane"></i> SEND MESSAGE
                 </button>
             </p>
+        </form> -->
+        <form [formGroup]="formGroup" (ngSubmit)="clickSend()">
+            <p><input class="theme-input theme-border" type="text" value="aa" placeholder="Name" required
+                    formControlName="name"></p>
+            <div *ngIf="formGroup.get('name').hasError('required') && buttonClick==true" class="error-message">
+                Name is required.
+            </div>
+            <p><input class="theme-input theme-border" type="text" placeholder="Email" required formControlName="email">
+            </p>
+            <div *ngIf="formGroup.get('email').hasError('required') && buttonClick==true" class="error-message">
+                Email is required.
+            </div>
+            <p><input class="theme-input theme-border" type="text" placeholder="Subject" required
+                    formControlName="subject"></p>
+            <div *ngIf="formGroup.get('subject').hasError('required') && buttonClick==true" class="error-message">
+                Subject is required.
+            </div>
+            <p><input class="theme-input theme-border" type="text" placeholder="Message" required
+                    formControlName="message"></p>
+            <div *ngIf="formGroup.get('message').hasError('required') && buttonClick==true" class="error-message">
+                Message is required.
+            </div>
+            <p class="theme-center">
+                <button class="theme-button theme-main" type="submit">
+                    <i class="fa fa-paper-plane"></i> SEND MESSAGE
+                </button>
+            </p>
+
         </form>
     </div>
 </div>
@@ -182,13 +209,11 @@
 <footer class="theme-center theme-main theme-padding-64">
     <a href="#home" class="theme-button theme-light-grey"><i class="fa fa-arrow-up theme-margin-right"></i>To the
         top</a>
-    <div class="theme-xlarge theme-section">
-        <i class="fa fa-facebook-official theme-hover-opacity"></i>
-        <i class="fa fa-instagram theme-hover-opacity"></i>
-        <i class="fa fa-snapchat theme-hover-opacity"></i>
-        <i class="fa fa-pinterest-p theme-hover-opacity"></i>
-        <i class="fa fa-twitter theme-hover-opacity"></i>
-        <i class="fa fa-linkedin theme-hover-opacity"></i>
+    <div class="theme-xlarge theme-section social">
+        <i class="fa fa-facebook-official theme-hover-opacity" (click)="call('facebook')"></i>
+        <i class="fa fa-pinterest-p theme-hover-opacity" (click)="call('pinterest')"></i>
+        <i class="fa fa-youtube theme-hover-opacity" (click)="call('youtube')"></i>
+        <i class="fa fa-linkedin theme-hover-opacity" (click)="call('linkedin')"></i>
     </div>
 </footer>
 

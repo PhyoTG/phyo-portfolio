@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-home',
@@ -36,9 +37,19 @@ import { trigger, state, style, animate, transition, query, stagger } from '@ang
 export class HomeComponent {
   animationState = 'in';
   heading = "Hey, I'm Phyo!";
+  formGroup: any;
+  buttonClick = false;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.animateTextWriting();
+    this.formGroup = this.fb.group({
+      name: ['', { validators: Validators.required }],
+      email: ['', { validators: Validators.required }],
+      subject: ['', { validators: Validators.required }],
+      message: ['', { validators: Validators.required }],
+    }, { updateOn: 'submit' });
   }
   animateTextWriting() {
     const textArray = this.heading.split('');
@@ -51,5 +62,32 @@ export class HomeComponent {
         clearInterval(interval);
       }
     }, 100); // Adjust the interval to control the speed of writing
+  }
+
+  call(media: string) {
+    switch (media) {
+      case 'facebook':
+        window.open("https://www.facebook.com/phyotheingi.phyotheingi.7/", "_blank");
+        break;
+      case 'pinterest':
+        window.open("https://www.pinterest.com/phyotheingi92/", "_blank");
+        break;
+      case 'youtube':
+        window.open("https://www.youtube.com/channel/UCS2n3-G8nlVqaHR0TppQHhw", "_blank");
+        break;
+      case 'linkedin':
+        window.open("https://www.linkedin.com/in/phyo-theingi/", "_blank");
+        break;
+      default:
+        break;
+    }
+  }
+
+  clickSend() {
+    if (this.formGroup.valid) {
+      // call api
+    } else {
+      this.buttonClick = true;
+    }
   }
 }

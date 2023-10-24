@@ -2056,3 +2056,19 @@ html {
     width: 100%;
     left: 0;
 }
+
+.social {
+    padding: 24px 48px;
+    /* width: 50%; */
+}
+
+.social .fa {
+    font-size: 35px;
+    margin: 0px 20px 0px 0px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
