@@ -36,7 +36,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 })
 export class HomeComponent {
   animationState = 'in';
-  heading = "Hey, I'm Phyo!";
+  heading = "Hey, I'm Phyo Theingi";
   formGroup: any;
   buttonClick = false;
 
@@ -89,5 +89,15 @@ export class HomeComponent {
     } else {
       this.buttonClick = true;
     }
+  }
+
+  playAudio() {
+    console.log("hola");
+
+    let audio = new Audio();
+    audio.src = new URL("assets/images/name.mp3").toString();
+    // const track = require("url:../assets/images/name.mp3");
+    audio.load();
+    audio.play();
   }
 }
