@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from './../../api.service';
 
 @Component({
   selector: 'app-home',
@@ -40,7 +41,7 @@ export class HomeComponent {
   formGroup: any;
   buttonClick = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService) { }
 
   ngOnInit() {
     this.animateTextWriting();
@@ -85,7 +86,16 @@ export class HomeComponent {
 
   clickSend() {
     if (this.formGroup.valid) {
-      // call api
+      let body = {
+        "messageTitle": this.formGroup.value.subject,
+        "message": this.formGroup.value.message,
+        "email": this.formGroup.value.email,
+        "name": this.formGroup.value.name,
+        "phone": "641-000-0000"
+      };
+      this.apiService.sendMessage(this.formGroup.value).subscribe((data: any[]) => {
+        console.log(data);
+      });
     } else {
       this.buttonClick = true;
     }
