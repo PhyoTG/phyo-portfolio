@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from './../../api.service';
 
 @Component({
@@ -41,7 +42,7 @@ export class HomeComponent {
   formGroup: any;
   buttonClick = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.animateTextWriting();
@@ -87,15 +88,22 @@ export class HomeComponent {
   clickSend() {
     if (this.formGroup.valid) {
       let body = {
-        "messageTitle": this.formGroup.value.subject,
+        "subject": this.formGroup.value.subject,
         "message": this.formGroup.value.message,
         "email": this.formGroup.value.email,
         "name": this.formGroup.value.name,
-        "phone": "641-000-0000"
+        "phone": this.formGroup.value.phone != null ? this.formGroup.value.phone : '',
+        "messageID": this.formGroup.value.name.replace(/\s+/g, '').trim() + "-" + Math.floor(Math.random() * 1000)
       };
-      this.apiService.sendMessage(this.formGroup.value).subscribe((data: any[]) => {
-        console.log(data);
-      });
+      this.apiService.sendMessage(body).subscribe((data: any[]) => {
+        this.showSuccess();
+        this.formGroup.reset();
+        this.buttonClick = false;
+      },
+        error => {
+          this.showError();
+        });
+
     } else {
       this.buttonClick = true;
     }
@@ -109,5 +117,12 @@ export class HomeComponent {
     // const track = require("url:../assets/images/name.mp3");
     audio.load();
     audio.play();
+  }
+
+  showSuccess() {
+    this.toastr.success('Message Sent Successfully', 'Good News!');
+  }
+  showError() {
+    this.toastr.success('Message Not Sent!', 'Humm!');
   }
 }

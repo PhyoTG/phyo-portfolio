@@ -1,0 +1,50 @@
+header {
+    background-color: #0a192f;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post {
+    margin: 20px 0;
+}
+
+.post h2 {
+    font-size: 24px;
+}
+
+.post p {
+    line-height: 1.6;
+}
+
+.back {
+    display: block;
+    position: absolute;
+    margin-top: 1%;
+}
+
+.back a {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 600px) {
+    .back {
+        display: block;
+        position: relative;
+        margin-top: 1%;
+        text-decoration: none;
+    }
+}

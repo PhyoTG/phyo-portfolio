@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  apiUrl = 'https://q2oq8dhqyl.execute-api.us-east-1.amazonaws.com';
+  apiUrl = 'https://bww3s8wqz6.execute-api.us-east-1.amazonaws.com/v1';
 
   constructor(private http: HttpClient) { }
 
   sendMessage(body: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/v1/portfolio-lambda`, body);
+    return this.http.post<any>(`${this.apiUrl}/message`, body);
   }
 }

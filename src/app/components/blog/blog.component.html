@@ -1,0 +1,240 @@
+<header>
+    <div class="back"><a href="/"> Back to Website</a></div>
+    <h1 [@writingAnimation]>{{heading}}</h1>
+</header>
+
+<div class="container">
+    <div class="post section-title">
+        <h2 class="theme-center">Introduction</h2>
+        <p>
+            Requiring no training data or any knowledge on your part of the underlying machine learning techniques,
+            Rekognition
+            easily plugs into AWS applications to deliver detailed analysis. You can recognize persons, language,
+            places,
+            and
+            activities in photos and videos, as well as identify any acceptable material, with Amazon Rekognition.
+            Additionally, it
+            offers extremely accurate facial analysis and search capabilities that you can use for a wide range of use
+            cases,
+            including public safety, people counting, and user verification, to identify, analyze, and compare faces.
+            <br /><br />
+            All you have to do is provide photos of the things or scenes you like to have identified,
+            <br />and the service will take care
+            of the rest.
+        </p>
+        <div>
+            <img src="/assets/images/blog.png" alt="">
+        </div>
+        <p>
+            AWS Lambda has blueprints for Rekognition that make it easy to initiate image analysis based on events in
+            your AWS data
+            stores such as Amazon S3 and Amazon DynamoDB. IAM (Identity and Access Management) on AWS is linked with
+            Amazon
+            Rekognition.With the help of Amazon Rekognition, you can easily integrate potent visual analysis into your
+            apps. You can
+            create robust apps that search, validate, and arrange millions of photos with ease with Rekognition Image.
+        </p>
+
+    </div>
+
+    <div class="post  section-title">
+        <h2>Features</h2>- as of Oct 2022
+    </div>
+    <div>
+        <ol>
+            <li>
+                <span><b>Labels</b></span>
+                Using Amazon Rekognition, you can recognize hundreds of items, including bicycles, phones, buildings,
+                and sceneries like
+                parking lots, beaches, and stadiums, among others. You may also recognize certain identities while
+                analyzing footage,
+                such as whether someone is playing football, delivering a box, or something else entirely.
+            </li>
+            <li>
+                <span><b>Custom Labels</b></span>
+                Expanding Amazon Rekognition's capabilities can help you extract information from images that is
+                specifically beneficial
+                to your organization. You can locate your company's emblem on social media, for instance, or recognize
+                your items on
+                shop shelves.
+            </li>
+            <li>
+                <span><b>Content Moderation</b></span>
+                Using image and video assets, Amazon Rekognition assists you in identifying potentially harmful or
+                inappropriate
+                content. It also gives you detailed labeling so you can precisely control what you want to allow
+                depending on your
+                requirements.
+            </li>
+            <li>
+                <span><b>Text In Image</b></span>
+                In photos text appear very differently that neat words on a paper. Amazon's Rekognition is capable of
+                reading the
+                distortions. and distorted text To collect information such as the name of the store, street sign or
+                text on products
+                packaging etc.
+            </li>
+            <li>
+                <span><b>Face Detection and analysis</b></span>
+                You can easily determine whether a face appears in an image or video with Amazon Rekognition, and
+                receive attributes.
+                like gender, age And so, range, eyes open or shut, etc.
+            </li>
+            <li>
+                <span><b>Face Search and verification</b></span>
+                Amazon Rekognition is a face recognition technology that enables you to find people in photos quickly
+                and accurately. or
+                video using Your personal photo library of the face. Analysis of the face image can also be used to
+                verify identity.
+                images you have restored for comparison.
+            </li>
+            <li>
+                <span><b>Face Liveness</b></span>
+                Check that a user being verified is physically present before the camera, not spoofing their identity.
+                This feature can be used in larger area of photo verified like in immigrant/non-immigrant process,
+                banking identifying operations.
+            </li>
+            <li>
+                <span><b>Celebrity Recognition</b></span>
+                In your image and video library you can identify well known people in a fast fashion to catalogue
+                footage, photos for
+                marketing, The use cases relate to the advertising and media sectors.
+            </li>
+            <li>
+                <span><b>Pathing</b></span>
+                By using Amazon Rekognition, you can track people's movements in the scene. You can, for instance, take
+                advantage of
+                this the movement of athletes during a game to identify place for the post game analysis.
+            </li>
+        </ol>
+    </div>
+
+    <div class="post  section-title">
+        <h2>Advantages</h2>
+
+        <li>Easy to use</li>
+        <li>Efficiency of AI</li>
+        <li>Budget Save</li>
+        <li>Analysis of Images</li>
+
+    </div>
+    <div class="post  section-title">
+        <h2>DEMO: Finding Celebrity</h2>
+        <p>Here is a basic demo project in which we will upload an image, and service will detect the image is matching
+            identity to pre-trained data. Technically, we'll fetch one image and try to fetch facts out of that image
+            i.e. name, matching confidence.
+        </p><br />
+        <div>The image I used is &nbsp; <img src="/assets/images/blog/ChrisEvans.jpeg" alt="" width="20%"></div>
+        <br>
+        <h1>Let's play...</h1>
+    </div>
+    <div>
+        <ul>
+            <li>
+                <span><b>Step 1</b></span>
+                You will need to provide IAM role with lambda as a service and attach 'AWSLambdaExecute',
+                'AmazonRekognitionFullAccess' permissions in order to do for the face Recognition.
+                <div>
+                    <br><img src="/assets/images/blog/Step1.png" alt="" width="100%">
+                </div>
+                <br>
+            </li>
+            <li>
+                <span><b>Step 2</b></span>
+                Go to S3 and create a bucket. Upload one image of your choice, I'll put above photo there.
+                <div>
+                    <br><img src="/assets/images/blog/Step2.png" alt="" width="100%">
+                </div>
+                <br>
+            </li>
+            <li>
+                <span><b>Step 3</b></span>
+                Go to Lambda and write code as shown below.
+                <div>
+                    <br>
+                    <code><pre>
+import {{"{"}} RecognizeCelebritiesCommand } from "@aws-sdk/client-rekognition";
+import {{"{"}} RekognitionClient } from "@aws-sdk/client-rekognition";
+
+const REGION = "us-east-1";
+
+const rekogClient = new RekognitionClient({{"{"}}region: REGION});
+
+const bucket = 'demoblogbusket';
+const photo = 'ChrisEvans.jpeg';
+
+// Set params
+const params = {{"{"}}
+    Image: {{"{"}}
+        S3Object: {{"{"}}
+            Bucket: bucket,
+            Name: photo
+        },
+    },
+}
+
+export const handler = async (event) => {{"{"}}
+try {{"{"}}
+const response = await rekogClient.send(new RecognizeCelebritiesCommand(params));
+console.log(response)
+response.CelebrityFaces.forEach(celebrity =>{{"{"}}
+console.log(`Name: ${{"{"}}celebrity.Name}`)
+console.log(`ID: ${{"{"}}celebrity.Id}`)
+console.log(`KnownGender: ${{"{"}}celebrity.KnownGender.Type}`)
+console.log(`Smile: ${{"{"}}celebrity.Smile}`)
+console.log('Position: ')
+console.log(` Left: ${{"{"}}celebrity.Face.BoundingBox.Height}`)
+console.log(` Top : ${{"{"}}celebrity.Face.BoundingBox.Top}`)
+
+})
+return response.length;
+} catch (err) {{"{"}}
+    console.log("Error", err);
+}
+const res = {{"{"}}
+    statusCode: 200,
+    body: response,
+};
+return res;
+};
+                    </pre>
+                    </code>
+                </div>
+                <br>
+            </li>
+            <li>
+                <span><b>Step 4</b></span>
+                Test!
+                <div>
+                    <br><img src="/assets/images/blog/Step4.png" alt="" width="100%">
+                </div>
+                <br>
+            </li>
+            <li>
+                <span><b>Outcome</b></span>
+                <code><pre>
+{{"{"}}
+&#9;'$metadata': {{"{"}}
+&#9;&#9;httpStatusCode: 200,
+&#9;&#9;requestId: '1329d208-e4b1-4fbc-96a8-7277699c0b80',
+&#9;&#9;extendedRequestId: undefined,
+&#9;&#9;cfId: undefined,
+&#9;&#9;attempts: 1,
+&#9;&#9;totalRetryDelay: 0
+&#9;},
+&#9;CelebrityFaces: [{{"{"}}
+&#9;&#9;Face: [Object],
+&#9;&#9;Id: '10g2ZL',
+&#9;&#9;KnownGender: [Object],
+&#9;&#9;MatchConfidence: 96.86851501464844,
+&#9;&#9;Name: 'Chris Evans',
+&#9;&#9;Urls: [Array]
+&#9;}],
+&#9;UnrecognizedFaces: []
+}
+                </pre>
+                </code>
+            </li>
+        </ul>
+    </div>
+</div>

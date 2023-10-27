@@ -8,6 +8,7 @@
             <a href="#experience" class="theme-bar-item theme-button"><i class="fa fa-user"></i> EXPERIENCE</a>
             <a href="#project" class="theme-bar-item theme-button"><i class="fa fa-th"></i> PROJECTS</a>
             <a href="#education" class="theme-bar-item theme-button"><i class="fa fa-address-book"></i> EDUCATION</a>
+            <a href="/blog" class="theme-bar-item theme-button"><i class="fa fa-book"></i> BLOG</a>
             <a href="#contact" class="theme-bar-item theme-button"><i class="fa fa-envelope"></i> CONTACT</a>
         </div>
         <!-- Hide right-floated links on small screens and replace them with a menu icon -->
@@ -56,9 +57,11 @@
                 technologies to solve major
                 technical challenges.</span>
         </div>
-        <p><span (mouseover)="ref.play()"
-                class="theme-button theme-white theme-padding-large theme-large theme-margin-top theme-opacity theme-hover-opacity-off">Call
-                my name like this</span></p>
+        <p><span class="theme-button theme-white theme-padding-large theme-large theme-margin-top theme-opacity theme-hover-opacity-off"
+                (click)="call('linkedin')">
+                Connect Me </span></p>
+        <!-- (mouseover)=" ref.play()" -->
+
     </div>
     <div class="theme-display-bottomleft theme-text-grey theme-large social" style="padding:24px 48px">
         <i class="fa fa-facebook-official theme-hover-opacity" (click)="call('facebook')"></i>
@@ -398,22 +401,26 @@
             </p>
         </form> -->
         <form [formGroup]="formGroup" (ngSubmit)="clickSend()">
-            <p><input class="theme-input theme-border" type="text" value="aa" placeholder="Name" required
+            <p><input class="theme-input theme-border" type="text" value="aa" placeholder="Name*" required
                     formControlName="name"></p>
             <div *ngIf="formGroup.get('name').hasError('required') && buttonClick==true" class="error-message">
                 Name is required.
             </div>
-            <p><input class="theme-input theme-border" type="text" placeholder="Email" required formControlName="email">
+            <p><input class="theme-input theme-border" type="text" placeholder="Email*" required
+                    formControlName="email">
             </p>
             <div *ngIf="formGroup.get('email').hasError('required') && buttonClick==true" class="error-message">
                 Email is required.
             </div>
-            <p><input class="theme-input theme-border" type="text" placeholder="Subject" required
+            <p><input class="theme-input theme-border" type="number" placeholder="Phone" formControlName="phone"
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+            </p>
+            <p><input class="theme-input theme-border" type="text" placeholder="Subject*" required
                     formControlName="subject"></p>
             <div *ngIf="formGroup.get('subject').hasError('required') && buttonClick==true" class="error-message">
                 Subject is required.
             </div>
-            <p><input class="theme-input theme-border" type="text" placeholder="Message" required
+            <p><input class="theme-input theme-border" type="text" placeholder="Message*" required
                     formControlName="message"></p>
             <div *ngIf="formGroup.get('message').hasError('required') && buttonClick==true" class="error-message">
                 Message is required.
