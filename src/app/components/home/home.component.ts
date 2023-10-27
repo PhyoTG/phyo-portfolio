@@ -51,6 +51,7 @@ export class HomeComponent {
       email: ['', { validators: Validators.required }],
       subject: ['', { validators: Validators.required }],
       message: ['', { validators: Validators.required }],
+      phone: ['']
     }, { updateOn: 'submit' });
   }
   animateTextWriting() {
